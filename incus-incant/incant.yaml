@@ -44,8 +44,8 @@ instances:
           uid: 0
           gid: 0
   node01:
-      image: images:ubuntu/24.04
-      vm: true
-      type: c4-m4
-      provision:
-       - ssh: true
+    image: images:ubuntu/24.04
+    vm: true
+    type: c4-m4
+    provision:
+      - ssh: true
