@@ -22,6 +22,7 @@ instances:
     image: images:ubuntu/24.04
     vm: true
     type: c1-m1
+    # pre-launch:
     provision:
       - ssh: true
       - | # first, an inlined script
@@ -46,7 +47,5 @@ instances:
       image: images:ubuntu/24.04
       vm: true
       type: c4-m4
-      pre-launch: # on RHEL-based distros VMs, that needs to be manually added
-       - config device add almalinux agent disk source=agent:config
       provision:
        - ssh: true
