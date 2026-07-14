@@ -2,6 +2,7 @@ instances:
   controleplane01:
     image: images:ubuntu/24.04
     vm: true
+    type: c2-m2
     devices:
       root:
         size: 1GiB
@@ -14,12 +15,13 @@ instances:
   controleplane02:
     image: images:ubuntu/24.04
     vm: true
-    type: c1-m1 # 1 CPU, 1GB RAM
+    type: c1-m1
     provision:
       - ssh: true
   loadbalancer:
     image: images:ubuntu/24.04
     vm: true
+    type: c1-m1
     provision:
       - ssh: true
       - | # first, an inlined script
@@ -43,6 +45,7 @@ instances:
   node01:
       image: images:ubuntu/24.04
       vm: true
+      type: c4-m4
       pre-launch: # on RHEL-based distros VMs, that needs to be manually added
        - config device add almalinux agent disk source=agent:config
       provision:
