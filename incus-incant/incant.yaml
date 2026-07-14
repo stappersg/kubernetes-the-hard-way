@@ -49,3 +49,9 @@ instances:
     type: c4-m4
     provision:
       - ssh: true
+  node02:
+    image: images:ubuntu/24.04
+    vm: true
+    type: c4-m4
+    provision:
+      - ssh: true
