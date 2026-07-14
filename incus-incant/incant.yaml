@@ -1,6 +1,7 @@
 instances:
-  basic-container:
+  controleplane01:
     image: images:ubuntu/24.04
+    vm: true
     devices:
       root:
         size: 1GiB
@@ -8,12 +9,13 @@ instances:
     shared_folder: false # disable shared folder (/incant) setup (default: enabled)
     config: # any incus config options
       limits.processes: 100
-  basic-vm:
+  controleplane02:
     image: images:ubuntu/24.04
     vm: true
     type: c1-m1 # 1 CPU, 1GB RAM
-  provisioned:
+  loadbalancer:
     image: images:debian/13
+    vm: true
     provision: # a list of provisioning steps
       - | # first, an inlined script
         #!/bin/bash
@@ -34,7 +36,7 @@ instances:
           mode: "0644"
           uid: 0
           gid: 0
-  almalinux:
+  node01:
       image: images/almalinux/10
       vm: true
       pre-launch: # on RHEL-based distros VMs, that needs to be manually added
