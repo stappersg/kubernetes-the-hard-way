@@ -14,7 +14,7 @@ instances:
     vm: true
     type: c1-m1 # 1 CPU, 1GB RAM
   loadbalancer:
-    image: images:debian/13
+    image: images:ubuntu/24.04
     vm: true
     provision: # a list of provisioning steps
       - | # first, an inlined script
@@ -37,7 +37,7 @@ instances:
           uid: 0
           gid: 0
   node01:
-      image: images/almalinux/10
+      image: images:ubuntu/24.04
       vm: true
       pre-launch: # on RHEL-based distros VMs, that needs to be manually added
        - config device add almalinux agent disk source=agent:config
