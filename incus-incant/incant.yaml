@@ -9,14 +9,19 @@ instances:
     shared_folder: false # disable shared folder (/incant) setup (default: enabled)
     config: # any incus config options
       limits.processes: 100
+    provision:
+      - ssh: true
   controleplane02:
     image: images:ubuntu/24.04
     vm: true
     type: c1-m1 # 1 CPU, 1GB RAM
+    provision:
+      - ssh: true
   loadbalancer:
     image: images:ubuntu/24.04
     vm: true
-    provision: # a list of provisioning steps
+    provision:
+      - ssh: true
       - | # first, an inlined script
         #!/bin/bash
         set -xe
@@ -26,7 +31,6 @@ instances:
       # as incant will 'cd' to /incant, so the script will be available
       # inside the instance
       - examples/provision/web_server.rb
-      - ssh: true # configure an ssh server and provide access
       # - ssh: # same with more configuration
       #    clean_known_hosts: true (that's the default)
       #    # authorized_keys: path to file (default: concatenate id_*.pub)
@@ -42,5 +46,4 @@ instances:
       pre-launch: # on RHEL-based distros VMs, that needs to be manually added
        - config device add almalinux agent disk source=agent:config
       provision:
-       - llmnr: true # LLMNR disabled by default on RHEL-based
        - ssh: true
