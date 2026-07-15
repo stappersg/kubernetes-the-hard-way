@@ -14,7 +14,13 @@ CD into vagrant directory:
 cd kubernetes-the-hard-way/vagrant
 ```
 
-The `Vagrantfile` is configured to assume you have at least an 8 core CPU which most modern core i5, i7 and i9 do, and at least 16GB RAM. You can tune these values especially if you have *less* than this by editing the `Vagrantfile` before the next step below and adjusting the values for `RAM_SIZE` and `CPU_CORES` accordingly. It is not recommended to change these unless you know what you are doing as it may result in crashes and will make the lab harder to support.
+The `Vagrantfile` is configured to assume you have at least an 8 core CPU
+which most modern core i5, i7 and i9 do, and at least 16GB RAM. You can
+tune these values especially if you have *less* than this by editing the
+`Vagrantfile` before the next step below and adjusting the values for
+`RAM_SIZE` and `CPU_CORES` accordingly. It is not recommended to change
+these unless you know what you are doing as it may result in crashes
+and will make the lab harder to support.
 
 This will not work if you have less than 8GB of RAM.
 
