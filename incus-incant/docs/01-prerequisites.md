@@ -1,7 +1,7 @@
-# Kubernetes The Hard Way on VirtualBox
+# Kubernetes The Hard Way on incus
 
 Begin here if your machine is Windows or Intel Mac. For these machines,
-we use VirtualBox as the hypervisor, and Vagrant to provision the
+we use incus as the hypervisor, and incant to provision the
 Virtual Machines.
 
 This should also work with Linux (as the host operating system, not
@@ -19,20 +19,22 @@ This lab provisions 5 VMs on your workstation. That's a lot of compute resource!
   work with fewer, but will be slow and may crash unexpectedly.
 - 50 GB disk space
 
-### VirtualBox
+### incus
 
-Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) on any one of the supported platforms:
+Download and install [incus](https://linuxcontainers.org/incus/)
 
  - Windows
  - Intel Mac
  - Linux
 
-### Vagrant
+### incant
 
-Once VirtualBox is installed you may chose to deploy virtual machines manually on it.
-Vagrant provides an easier way to deploy multiple virtual machines on VirtualBox more consistently.
+Once `incus` is installed you may chose to deploy virtual machines
+manually on it.
+`incant` provides an easier way to deploy multiple virtual machines on
+incus more consistently.
 
-Download and install [Vagrant](https://www.vagrantup.com/) on your platform.
+Download and install [incant](https://github.com/lnussbaum/incant)
 
 - Windows
 - Debian/Ubuntu
@@ -40,7 +42,7 @@ Download and install [Vagrant](https://www.vagrantup.com/) on your platform.
 - Linux
 - Intel Mac
 
-This tutorial assumes that you have also installed Vagrant.
+This tutorial assumes that you have also installed incant.
 
 
 ### Lab Defaults
@@ -51,17 +53,17 @@ you have deployed any of the lab, you'll need to completely reset it
 and start again from the beginning:
 
 ```bash
-vagrant destroy -f
-vagrant up
+incant destroy
+incant up
 ```
 
 If you do change any of these, **please consider that a personal preference and don't submit a PR for it**.
 
 #### Virtual Machine Network
 
-The network used by the VirtualBox virtual machines is `192.168.56.0/24`.
+The network used by the incus virtual machines is `192.168.56.0/24`.
 
-To change this, edit the [Vagrantfile](../../vagrant/Vagrantfile) in your
+To change this, edit the [incant.yaml](../../incus-incant/incant.yaml) in your
 cloned copy (do not edit directly in github), and set the new value for
 the network prefix at line 14. This should not overlap any of the other
 network settings.
@@ -120,6 +122,6 @@ panes with synchronize-panes enabled to speed up the provisioning process.
 > panes will be red. Everything you type or paste in one pane will
 > be echoed in the other.<br>To disable synchronization type `CTRL+X`
 > again.</br></br>Note that the `CTRL-X` key binding is provided by a
-> `.tmux.conf` loaded onto the VM by the vagrant provisioner.
+> `.tmux.conf` loaded onto the VM by the incant provisioner.
 
 Next: [Compute Resources](02-compute-resources.md)

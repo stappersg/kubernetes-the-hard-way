@@ -1,57 +1,45 @@
 # Provisioning Compute Resources
 
-Note: You must have VirtualBox and Vagrant configured at this point.
 
-Download this github repository and cd into the vagrant folder:
-
-```bash
-git clone https://github.com/mmumshad/kubernetes-the-hard-way.git
-```
-
-CD into vagrant directory:
+CD into incus-incant directory:
 
 ```bash
-cd kubernetes-the-hard-way/vagrant
+cd kubernetes-the-hard-way/incus-incant
 ```
 
-The `Vagrantfile` is configured to assume you have at least an 8 core CPU
+The `incant.yaml` is configured to assume you have at least an 8 core CPU
 which most modern core i5, i7 and i9 do, and at least 16GB RAM. You can
 tune these values especially if you have *less* than this by editing the
-`Vagrantfile` before the next step below and adjusting the values for
+`incant.yaml` before the next step below and adjusting the values for
 `RAM_SIZE` and `CPU_CORES` accordingly. It is not recommended to change
 these unless you know what you are doing as it may result in crashes
 and will make the lab harder to support.
 
 This will not work if you have less than 8GB of RAM.
 
-Run Vagrant up:
+Run incant up:
 
 ```bash
-vagrant up
+incant up
 ```
 
 
 This does the below:
 
-- Deploys 5 VMs - 2 controlplane, 2 worker and 1 loadbalancer with the name 'kubernetes-ha-* '
-    > This is the default settings. This can be changed at the top of the Vagrant file.
-    > If you choose to change these settings, please also update `vagrant/ubuntu/vagrant/setup-hosts.sh`
-    > to add the additional hosts to the `/etc/hosts` default before running `vagrant up`.
+- Deploys 5 VMs - 2 controlplane, 2 worker and 1 loadbalancer
 
 - Set's IP addresses in the range `192.168.56.x`
 
-    | VM            |  VM Name               | Purpose       | IP            | Forwarded Port   | RAM  |
-    | ------------  | ---------------------- |:-------------:| -------------:| ----------------:|-----:|
-    | controlplane01      | kubernetes-ha-controlplane01 | Master        | 192.168.56.11 |     2711         | 2048 |
-    | controlplane02      | kubernetes-ha-controlplane02 | Master        | 192.168.56.12 |     2712         | 1024 |
-    | node01      | kubernetes-ha-node01 | Worker        | 192.168.56.21 |     2721         | 512  |
-    | node02      | kubernetes-ha-node02 | Worker        | 192.168.56.22 |     2722         | 1024 |
-    | loadbalancer  | kubernetes-ha-lb       | LoadBalancer  | 192.168.56.30 |     2730         | 1024 |
+    | VM            | Purpose       | IP            | RAM  |
+    | ------------  |:-------------:| -------------:|-----:|
+    | controlplane01      | Master        | 192.168.56.11 | 2048 |
+    | controlplane02      | Master        | 192.168.56.12 | 1024 |
+    | node01      | Worker        | 192.168.56.21 | 512  |
+    | node02      | Worker        | 192.168.56.22 | 1024 |
+    | loadbalancer  | LoadBalancer  | 192.168.56.30 | 1024 |
 
-    > These are the default settings. These can be changed in the Vagrant file
-
-- Add's a DNS entry to each of the nodes to access internet
-    > DNS: 8.8.8.8
+    > These are the default settings.
+    > These can be changed in the `incant.yaml` file
 
 - Sets required kernel settings for kubernetes networking to function correctly.
 
