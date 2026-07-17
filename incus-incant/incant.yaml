@@ -4,6 +4,8 @@ instances:
     vm: true
     type: c2-m2
     devices:
+      eth0:
+        ipv4.address: 192.168.56.11
       root:
         size: 1GiB
     wait: true # wait for instance to be ready (incus agent running)
