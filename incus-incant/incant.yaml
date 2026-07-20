@@ -1,57 +1,37 @@
+reuse: &common_config
+  image: images:ubuntu/24.04
+  vm: true
+  wait: true # wait for instance to be ready (incus agent running)
+  shared_folder: false # disable shared folder (/incant) setup (default: enabled)
+  provision:
+    - ssh: true
+    - copy: # copy a file using 'incus file push'
+        source: ../vagrant/ubuntu/setup-kernel.sh
+        target: /usr/local/sbin/
+        mode: "0755"
+        uid: 0
+        gid: 0
+    - | # an inlined script
+      #!/bin/bash
+      set -xe
+      /usr/local/sbin/setup-kernel.sh
+
 instances:
   controleplane01:
-    image: images:ubuntu/24.04
-    vm: true
     type: c2-m2
     devices:
       eth0:
         ipv4.address: 192.168.56.11
-    wait: true # wait for instance to be ready (incus agent running)
-    shared_folder: false # disable shared folder (/incant) setup (default: enabled)
-    config: # any incus config options
-      limits.processes: 100
-    provision:
-      - ssh: true
+    <<: *common_config
   controleplane02:
-    image: images:ubuntu/24.04
-    vm: true
     type: c1-m1
-    provision:
-      - ssh: true
+    <<: *common_config
   loadbalancer:
-    image: images:ubuntu/24.04
-    vm: true
     type: c1-m1
-    # pre-launch:
-    provision:
-      - ssh: true
-      - | # first, an inlined script
-        #!/bin/bash
-        set -xe
-        apt-get update
-        apt-get -y install curl ruby
-      # then, a script. the path can be relative to the current dir,
-      # as incant will 'cd' to /incant, so the script will be available
-      # inside the instance
-      - examples/provision/web_server.rb
-      # - ssh: # same with more configuration
-      #    clean_known_hosts: true (that's the default)
-      #    # authorized_keys: path to file (default: concatenate id_*.pub)
-      - copy: # copy a file using 'incus file push'
-          source: ./README.md
-          target: /tmp/README.md
-          mode: "0644"
-          uid: 0
-          gid: 0
+    <<: *common_config
   node01:
-    image: images:ubuntu/24.04
-    vm: true
     type: c4-m4
-    provision:
-      - ssh: true
+    <<: *common_config
   node02:
-    image: images:ubuntu/24.04
-    vm: true
     type: c4-m4
-    provision:
-      - ssh: true
+    <<: *common_config
