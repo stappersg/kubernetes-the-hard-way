@@ -9,11 +9,11 @@ NC='\033[0m'
 
 # IP addresses
 PRIMARY_IP=$(ip route | grep default | awk '{ print $9 }')
-CONTROL01=$(dig +short controlplane01)
-CONTROL02=$(dig +short controlplane02)
-NODE01=$(dig +short node01)
-NODE02=$(dig +short node02)
-LOADBALANCER=$(dig +short loadbalancer)
+CONTROL01=$(dig +short controlplane01.incus)
+CONTROL02=$(dig +short controlplane02.incus)
+NODE01=$(dig +short node01.incus)
+NODE02=$(dig +short node02.incus)
+LOADBALANCER=$(dig +short loadbalancer.incus)
 LOCALHOST="127.0.0.1"
 
 # All Cert Location
