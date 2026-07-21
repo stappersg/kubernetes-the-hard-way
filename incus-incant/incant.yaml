@@ -25,13 +25,25 @@ instances:
     <<: *common_config
   controleplane02:
     type: c1-m1
+    devices:
+      eth0:
+        ipv4.address: 192.168.56.12
     <<: *common_config
   loadbalancer:
     type: c1-m1
+    devices:
+      eth0:
+        ipv4.address: 192.168.56.30
     <<: *common_config
   node01:
     type: c4-m4
+    devices:
+      eth0:
+        ipv4.address: 192.168.56.21
     <<: *common_config
   node02:
     type: c4-m4
+    devices:
+      eth0:
+        ipv4.address: 192.168.56.22
     <<: *common_config

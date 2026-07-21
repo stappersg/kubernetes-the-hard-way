@@ -66,6 +66,30 @@ cloned copy (do not edit directly in github), and set the new value for
 the network prefix. This should not overlap any of the other
 network settings.
 
+For changing an incus network address block,
+you start with `incus network list`.
+Lets say in the output is a network with name `incusbr-1000`.
+So we can zoom in on that network
+with `incus network list-allocations | grep incusbr-1000`.
+There should be `192.168.56.1/24` shown. If not, edit by
+```shell
+sudo incus network edit incusbr-1000
+```
+Check the result by
+another `incus network list-allocations | grep incusbr-1000`
+The goal we aiming for looks like:
+```
+$ incus network list-allocations
++-----------------------------+------------------+----------+-----+-------------+
+|            USED BY          |      ADDRESS     |   TYPE   | NAT | MAC ADDRESS |
++-----------------------------+------------------+----------+-----+-------------+
+~~~
+| /1.0/networks/incusbr-1000  | 192.168.56.1/24  | network  | YES |             |
++-----------------------------+------------------+----------+-----+-------------+
+~~~
+$
+```
+
 Note that you do not need to edit any of the other scripts to make the
 above change. It is all managed by shell variable computations based
 on the assigned VM  IP  addresses and the values in the hosts file
