@@ -17,13 +17,13 @@ reuse: &common_config
       /usr/local/sbin/setup-kernel.sh
 
 instances:
-  controleplane01:
+  controlplane01:
     type: c2-m2
     devices:
       eth0:
         ipv4.address: 192.168.56.11
     <<: *common_config
-  controleplane02:
+  controlplane02:
     type: c1-m1
     devices:
       eth0:
