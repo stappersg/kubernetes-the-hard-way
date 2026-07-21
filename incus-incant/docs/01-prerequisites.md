@@ -23,9 +23,9 @@ This lab provisions 5 VMs on your workstation. That's a lot of compute resource!
 
 Download and install [incus](https://linuxcontainers.org/incus/)
 
- - Windows
- - Intel Mac
- - Linux
+```bash
+sudo apt install --yes incus
+```
 
 ### incant
 
@@ -36,11 +36,9 @@ incus more consistently.
 
 Download and install [incant](https://github.com/lnussbaum/incant)
 
-- Windows
-- Debian/Ubuntu
-- CentOS
-- Linux
-- Intel Mac
+```bash
+sudo apt install --yes incant
+```
 
 This tutorial assumes that you have also installed incant.
 
@@ -65,7 +63,7 @@ The network used by the incus virtual machines is `192.168.56.0/24`.
 
 To change this, edit the [incant.yaml](../../incus-incant/incant.yaml) in your
 cloned copy (do not edit directly in github), and set the new value for
-the network prefix at line 14. This should not overlap any of the other
+the network prefix. This should not overlap any of the other
 network settings.
 
 Note that you do not need to edit any of the other scripts to make the

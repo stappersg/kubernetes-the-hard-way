@@ -42,35 +42,35 @@ This does the below:
     > These can be changed in the `incant.yaml` file
 
 - Sets required kernel settings for kubernetes networking to function correctly.
+Through the `setup-kernel.sh` script.
 
-See [Vagrant page](../../vagrant/README.md) for details.
+## Access to the nodes
 
-## SSH to the nodes
+There are two ways to get shell access to the nodes:
 
-There are two ways to SSH into the nodes:
+### 1. Shell by incus
 
-### 1. SSH using Vagrant
-
-  From the directory you ran the `vagrant up` command, run `vagrant ssh \<vm\>` for example `vagrant ssh controlplane01`. This is the recommended way.
-  > Note: Use VM field from the above table and not the VM name itself.
+Run `incus shell \<vm\>` for example `incus shell controlplane01`.
+Use this for updating `/root/.ssh/authorized_keys` in the node.
 
 ### 2. SSH Using SSH Client Tools
 
-Use your favourite SSH terminal tool (putty).
+Use your favourite SSH terminal tool (`ssh` from OpenSSH).
 
-Use the above IP addresses. Username and password-based SSH is disabled by default.
+The incant provisioning step `ssh: true` installs SSH server
+and puts `~/.ssh/id_*.pub` of executing user, being you,
+in `/root/.ssh/authorized_keys` at the nodes.
 
-Vagrant generates a private key for each of these VMs. It is placed under the `.vagrant` folder (in the directory you ran the `vagrant up` command from) at the below path for each VM:
-
-- **Private key path**: `.vagrant/machines/\<machine name\>/virtualbox/private_key`
-- **Username/password**: `vagrant/vagrant`
-
+So you can do
+```text
+ssh root@<node>
+```
 
 ## Verify Environment
 
 - Ensure all VMs are up.
 - Ensure VMs are assigned the above IP addresses.
-- Ensure you can SSH into these VMs using the IP and private keys, or `vagrant ssh`.
+- Ensure you can SSH into these VMs using the IP and private keys, or `incus shell`.
 - Ensure the VMs can ping each other.
 
 ## Troubleshooting Tips
@@ -80,55 +80,13 @@ Vagrant generates a private key for each of these VMs. It is placed under the `.
 If any of the VMs failed to provision, or is not configured correct, delete the VM using the command:
 
 ```bash
-vagrant destroy \<vm\>
+incant destroy \<vm\>
 ```
 
-Then re-provision. Only the missing VMs will be re-provisioned
+Then re-provision.
 
 ```bash
-vagrant up
-```
-
-
-Sometimes the delete does not delete the folder created for the VM and throws an error similar to this:
-
-VirtualBox error:
-
-    VBoxManage.exe: error: Could not rename the directory 'D:\VirtualBox VMs\ubuntu-bionic-18.04-cloudimg-20190122_1552891552601_76806' to 'D:\VirtualBox VMs\kubernetes-ha-node02' to save the settings file (VERR_ALREADY_EXISTS)
-    VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component SessionMachine, interface IMachine, callee IUnknown
-    VBoxManage.exe: error: Context: "SaveSettings()" at line 3105 of file VBoxManageModifyVM.cpp
-
-In such cases delete the VM, then delete the VM folder and then re-provision, e.g.
-
-```bash
-vagrant destroy node02
-rmdir "\<path-to-vm-folder\>\kubernetes-ha-node02
-vagrant up
-```
-
-### Provisioner gets stuck
-
-This will most likely happen at "Waiting for machine to reboot"
-
-1. Hit `CTRL+C`
-1. Kill any running `ruby` process, or Vagrant will complain.
-1. Destroy the VM that got stuck: `vagrant destroy \<vm\>`
-1. Re-provision. It will pick up where it left off: `vagrant up`
-
-# Pausing the Environment
-
-You do not need to complete the entire lab in one session. You may shut down and resume the environment as follows, if you need to power off your computer.
-
-To shut down. This will gracefully shut down all the VMs in the reverse order to which they were started:
-
-```bash
-vagrant halt
-```
-
-To power on again:
-
-```bash
-vagrant up
+incant up \<vm\>
 ```
 
 Next: [Client tools](../../docs/03-client-tools.md)<br>
