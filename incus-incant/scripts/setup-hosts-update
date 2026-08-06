@@ -1,0 +1,27 @@
+#!/usr/bin/ansible-playbook --inventory=scripts/cluster
+#
+# For doing what ../../vagrant/ubuntu/setup-hosts.sh does
+#
+---
+- hosts: all
+  gather_facts: true
+  remote_user: root
+
+  tasks:
+    - name: IPv4 address in environ
+      ansible.builtin.lineinfile:
+        path: /etc/environment
+        owner: root
+        group: root
+        mode: "0644"
+        regexp: '^PRIMARY_IP='
+        line: "PRIMARY_IP={{ ansible_facts['default_ipv4']['address'] }}"
+
+    - name: architecture in environ
+      ansible.builtin.lineinfile:
+        path: /etc/environment
+        owner: root
+        group: root
+        mode: "0644"
+        regexp: '^ARCH='
+        line: "ARCH={{ ansible_facts['architecture'] }}"
