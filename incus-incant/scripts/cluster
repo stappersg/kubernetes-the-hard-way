@@ -1,0 +1,14 @@
+#
+# ansible inventory
+#
+[controlplane]
+controlplane01     ansible_python_interpreter=/usr/bin/python3
+controlplane02     ansible_python_interpreter=/usr/bin/python3
+[workers]
+node01     ansible_python_interpreter=/usr/bin/python3
+node02     ansible_python_interpreter=/usr/bin/python3
+
+[lb]
+loadbalancer     ansible_python_interpreter=/usr/bin/python3
+
+# l l
