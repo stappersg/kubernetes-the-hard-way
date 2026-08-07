@@ -24,4 +24,5 @@
         group: root
         mode: "0644"
         regexp: '^ARCH='
-        line: "ARCH={{ ansible_facts['architecture'] }}"
+        line: "ARCH={{ ansible_facts['architecture'] \
+                     | regex_replace('^x86_(64)$', 'amd\\1')}}"
