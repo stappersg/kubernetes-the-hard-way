@@ -26,3 +26,16 @@
         regexp: '^ARCH='
         line: "ARCH={{ ansible_facts['architecture'] \
                      | regex_replace('^x86_(64)$', 'amd\\1')}}"
+
+    - name: hosts in /etc/hosts
+      # due scripts unware of "search" in /etc/resolv.conf
+      ansible.builtin.blockinfile:
+        path: /etc/hosts
+        prepend_newline: true
+        marker: "# {mark} incus-incant/scripts/setup-hosts-update"
+        block: |
+          192.168.56.11    controlplane01
+          192.168.56.12    controlplane02
+          192.168.56.21    node01
+          192.168.56.22    node02
+          192.168.56.30    loadbalancer
